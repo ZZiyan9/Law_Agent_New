@@ -3,3 +3,4 @@ langchain_core==0.3.25
 python-dotenv==1.0.1
 streamlit==1.41.1
 zhipuai==2.0.1
+chromadb==0.4.25
