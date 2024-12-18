@@ -41,7 +41,7 @@ def get_vectordb():
 
     # 将向量数据库保存到本地，能够保证之后再次加载使用时，方便快速，而不是重新计算向量
     # 本地路径
-    persist_directory = '../data_base/vector_db/chroma'
+    persist_directory = './data_base/vector_db/chroma'
 
     # 使用Chroma 创建并加载数据库
     vectordb = Chroma(
