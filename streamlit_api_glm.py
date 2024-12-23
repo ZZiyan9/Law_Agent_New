@@ -29,28 +29,32 @@ def generate_response(input_text, api_key):
 
 # 处理文本数据
 def get_vectordb():
-    # 定义 Embeddings
-    embedding = ZhipuAIEmbeddings() # 定义嵌入模型
+    # 定义 Embedding
+    embedding = ZhipuAIEmbeddings()
 
-    # 读取文本文件（消费者权益保护法.txt）
-    with open("消费者权益保护法.txt", "r", encoding="utf-8") as f:
-        knowledge_base = f.readlines()  # 读取所有行，形成一个列表，每行是一个段落或文本块
-    
-    # 清理数据：去掉空行、换行符等
-    knowledge_base = [line.strip() for line in knowledge_base if line.strip()]  
-
-    # 将向量数据库保存到本地，能够保证之后再次加载使用时，方便快速，而不是重新计算向量
     # 本地路径
     persist_directory = '../data_base/vector_db/chroma'
 
-    # 使用Chroma 创建并加载数据库
-    vectordb = Chroma(
-        persist_directory=persist_directory,  # 指定存储数据库的位置
-        embedding_function=embedding # 将文本转换为向量，存储到数据库中的文本需要全部转换为向量
-    )
+    # 尝试加载已有的数据库，如果没有则创建
+    if os.path.exists(persist_directory):
+        vectordb = Chroma(
+            persist_directory=persist_directory,
+            embedding_function=embedding
+        )
+    else:
+        # 读取文本文件
+        with open("消费者权益保护法.txt", "r", encoding="utf-8") as f:
+            knowledge_base = f.readlines()  # 读取所有行，形成一个列表，每行是一个段落或文本块
+        
+        # 清理数据
+        knowledge_base = [line.strip() for line in knowledge_base if line.strip()]  
 
-    # 将清洗后的文本数据添加到向量数据库
-    vectordb.add_texts(knowledge_base)  
+        # 创建新的向量数据库并添加数据
+        vectordb = Chroma(
+            persist_directory=persist_directory,
+            embedding_function=embedding
+        )
+        vectordb.add_texts(knowledge_base)
 
     return vectordb
 
