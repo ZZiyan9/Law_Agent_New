@@ -27,7 +27,7 @@ def generate_response(input_text, api_key):
     output = output_parser.invoke(output)
     return output
 
-# 向量数据库的创建
+# 处理文本数据
 def get_vectordb():
     # 定义 Embeddings
     embedding = ZhipuAIEmbeddings() # 定义嵌入模型
@@ -41,7 +41,7 @@ def get_vectordb():
 
     # 将向量数据库保存到本地，能够保证之后再次加载使用时，方便快速，而不是重新计算向量
     # 本地路径
-    persist_directory = './data_base/vector_db/chroma'
+    persist_directory = '../data_base/vector_db/chroma'
 
     # 使用Chroma 创建并加载数据库
     vectordb = Chroma(
@@ -99,7 +99,7 @@ def get_qa_chain(question: str, api_key: str):
 
 # streamlit
 def main():
-    st.title('护法宝 - 法律援助')
+    st.title('法护通 - 法律援助')
 
     # 检查是否获取到 API 密钥
     if not api_key:
