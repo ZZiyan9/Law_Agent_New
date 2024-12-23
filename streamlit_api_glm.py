@@ -15,8 +15,6 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())    # read local .env file
 from zhipuai_llm import ZhipuAILLM
 from datetime import datetime
-
-import chormadb
 # 从环境变量读取 API 密钥，可以避免泄露
 api_key = os.getenv('ZHIPUAI_API_KEY')  # 使用 os.getenv() 获取环境变量
 
