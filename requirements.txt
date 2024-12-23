@@ -4,4 +4,3 @@ python-dotenv==1.0.1
 streamlit==1.41.1
 zhipuai==2.0.1
 chromadb==0.4.24
-sqlite3>=3.35.0
